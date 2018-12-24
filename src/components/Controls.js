@@ -7,46 +7,48 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import LocationSearch from './LocationSearch'
+import LocationSearch from './LocationSearch';
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    width: '100%'
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
-  },
+    fontWeight: theme.typography.fontWeightRegular
+  }
 });
 
 class Controls extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       origin: {},
       destination: {}
-    }
+    };
   }
 
-  onCoords(location, coords){
-    this.setState({[location]: coords})
+  onCoords(location, coords) {
+    this.setState({ [location]: coords });
   }
-  
+
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
         <ExpansionPanel expanded={true}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Search Weathernav</Typography>
+            <Typography className={classes.heading}>
+              Search Weathernav
+            </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <LocationSearch
-              label='Search Origin'
+              label="Search Origin"
               onCoords={this.onCoords.bind(this, 'origin')}
             />
             <LocationSearch
-              label='Search Destination'
+              label="Search Destination"
               onCoords={this.onCoords.bind(this, 'destination')}
             />
           </ExpansionPanelDetails>
@@ -55,7 +57,6 @@ class Controls extends Component {
     );
   }
 }
-
 
 Controls.propTypes = {
   classes: PropTypes.object.isRequired,

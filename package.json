@@ -8,6 +8,7 @@
     "gh-pages": "^2.0.1",
     "google-maps": "^3.3.0",
     "mui-places-autocomplete": "^2.0.0",
+    "prettier": "^1.15.3",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-google-maps": "^9.4.5",
@@ -19,7 +20,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "react-scripts build && gh-pages -b master -d build -r git@github.com:weathernav/weathernav.github.io.git"
+    "deploy": "react-scripts build && gh-pages -b master -d build -r git@github.com:weathernav/weathernav.github.io.git",
+    "prettier": "prettier --single-quote --write \"src/**/*.js\""
   },
   "eslintConfig": {
     "extends": "react-app"

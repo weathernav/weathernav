@@ -18,7 +18,14 @@ npm start
 ```
 
 # Development Notes
+## API Key
 The API key found in `.env` is only valid for https://weathernav.github.io/. To run locally, you will need to [generate your own API key](https://developers.google.com/maps/documentation/javascript/get-api-key).
+
+## Prettier.js precommit hook
+To enable Prettier.js precommit hook, run this command:
+```sh
+ln -s ../../pre-commit.sh .git/hooks/pre-commit
+```
 
 # Deployment
 To deploy to Github Pages, run `yarn deploy`.
