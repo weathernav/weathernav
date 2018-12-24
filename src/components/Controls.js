@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -19,25 +19,47 @@ const styles = theme => ({
   },
 });
 
-function Controls(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <ExpansionPanel expanded={true}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Search Weathernav</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <LocationSearch label='Search Origin'/>
-          <LocationSearch label='Search Destination'/>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    </div>
-  );
+class Controls extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      origin: {},
+      destination: {}
+    }
+  }
+
+  onCoords(location, coords){
+    this.setState({[location]: coords})
+  }
+  
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.root}>
+        <ExpansionPanel expanded={true}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography className={classes.heading}>Search Weathernav</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <LocationSearch
+              label='Search Origin'
+              onCoords={this.onCoords.bind(this, 'origin')}
+            />
+            <LocationSearch
+              label='Search Destination'
+              onCoords={this.onCoords.bind(this, 'destination')}
+            />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      </div>
+    );
+  }
 }
+
 
 Controls.propTypes = {
   classes: PropTypes.object.isRequired,
+  onRouteSearch: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(Controls);

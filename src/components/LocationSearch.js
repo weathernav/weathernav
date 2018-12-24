@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import Snackbar from '@material-ui/core/Snackbar'
 import MUIPlacesAutocomplete, { geocodeBySuggestion } from 'mui-places-autocomplete'
 
-class LocationSearch extends React.Component {
-  constructor() {
-    super()
+class LocationSearch extends Component {
+  constructor(props) {
+    super(props)
 
-    this.state = { open: false, coordinates: null, errorMessage: null }
-
-    this.onClose = this.onClose.bind(this)
-    this.onSuggestionSelected = this.onSuggestionSelected.bind(this)
+    this.state = {
+      open: false,
+      coordinates: null,
+      errorMessage: null
+    }
   }
 
   onClose() {
@@ -33,7 +36,7 @@ class LocationSearch extends React.Component {
         lat: geometry.location.lat(),
         lng: geometry.location.lng(),
       }
-
+      this.props.onCoords(coordinates)
       this.setState({ open: true, coordinates })
     }).catch((err) => {
       this.setState({ open: true, errorMessage: err.message })
@@ -58,12 +61,12 @@ class LocationSearch extends React.Component {
     return (
       <div>
         <MUIPlacesAutocomplete
-          onSuggestionSelected={this.onSuggestionSelected}
+          onSuggestionSelected={this.onSuggestionSelected.bind(this)}
           renderTarget={() => (<div />)}
           textFieldProps={{ label }}
         />
         <Snackbar
-          onClose={this.onClose}
+          onClose={this.onClose.bind(this)}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
           autoHideDuration={5000}
           open={open}
@@ -75,6 +78,8 @@ class LocationSearch extends React.Component {
   }
 }
 
-LocationSearch.description = 'Search locations'
-
+LocationSearch.propTypes = {
+  label: PropTypes.string.isRequired,
+  onCoords: PropTypes.func.isRequired
+}
 export default LocationSearch
