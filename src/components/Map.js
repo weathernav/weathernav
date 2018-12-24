@@ -56,7 +56,7 @@ class Map extends Component {
           this.setState({
             directions: result
           });
-          onDirections({directions: result})
+          onDirections({ directions: result });
         }
       }
     );

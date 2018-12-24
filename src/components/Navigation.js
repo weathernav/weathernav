@@ -13,7 +13,7 @@ class Navigation extends Component {
   onRouteSearch(locations) {
     this.setState({ locations });
   }
-  onDirections(directions){
+  onDirections(directions) {
     console.log(directions);
     // TODO: handle leg computations and weather requests
   }
