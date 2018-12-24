@@ -30,10 +30,9 @@ class Controls extends Component {
 
   onCoords(location, coords) {
     this.setState({ [location]: coords });
-    const {origin, destination} = this.state
-    const {onRouteSearch} = this.props
-    if(origin && destination)
-      onRouteSearch({origin, destination})
+    const { origin, destination } = this.state;
+    const { onRouteSearch } = this.props;
+    if (origin && destination) onRouteSearch({ origin, destination });
   }
 
   render() {

@@ -16,44 +16,36 @@ const enhance = compose(
     mapElement: <div style={{ height: '100%' }} />
   }),
   // withScriptjs,
-  withGoogleMap,
+  withGoogleMap
 );
 
 class Map extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       directions: null,
       origin: null,
       destination: null
-    }
+    };
   }
-  // shouldComponentUpdate(nextProps) {
-  //   console.log('nextProps', nextProps);
-  //   console.log('props', this.props);
-  //   const { origin, destination } = this.props
-  //   const { origin: nextOrigin, destination: nextDestination} = nextProps
-  //   if(!origin || !destination || !nextOrigin || !nextDestination) return true
-  //   console.log('here');
-  //   return (
-  //     origin.lat !== nextOrigin.lat ||
-  //     origin.lng !== nextOrigin.lng ||
-  //     destination.lat !== nextDestination.lat ||
-  //     destination.lng !== nextDestination.lng
-  //   )
-  // }
 
-  componentDidUpdate() {
+  componentWillReceiveProps(nextProps) {
     const gmaps = google.maps; // eslint-disable-line
-    const { origin, destination } = this.props
-
-    if(!origin || !destination) return
+    const { origin, destination } = this.props;
+    const { origin: nextOrigin, destination: nextDestination} = nextProps
+    if(!nextOrigin || !nextDestination) return
+    if (
+      origin && origin.lat === nextOrigin.lat &&
+      origin.lng === nextOrigin.lng &&
+      destination && destination.lat === nextDestination.lat &&
+      destination.lng === nextDestination.lng
+    ) return
 
     const DirectionsService = new gmaps.DirectionsService();
     DirectionsService.route(
       {
-        origin: new gmaps.LatLng(origin.lat, origin.lng),
-        destination: new gmaps.LatLng(destination.lat, destination.lng),
+        origin: new gmaps.LatLng(nextOrigin.lat, nextOrigin.lng),
+        destination: new gmaps.LatLng(nextDestination.lat, nextDestination.lng),
         travelMode: gmaps.TravelMode.DRIVING
       },
       (result, status) => {
@@ -67,13 +59,13 @@ class Map extends Component {
   }
 
   render() {
-    const { directions } = this.state
+    const { directions } = this.state;
 
     return (
       <GoogleMap defaultZoom={8} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
         {directions && <DirectionsRenderer directions={directions} />}
       </GoogleMap>
-    )
+    );
   }
 }
 
