@@ -19,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "react-scripts build && gh-pages -b master -d build"
+    "deploy": "react-scripts build && gh-pages -b master -d build -r git@github.com:weathernav/weathernav.github.io.git"
   },
   "eslintConfig": {
     "extends": "react-app"
