@@ -31,15 +31,18 @@ class Map extends Component {
 
   componentWillReceiveProps(nextProps) {
     const gmaps = google.maps; // eslint-disable-line
-    const { origin, destination } = this.props;
-    const { origin: nextOrigin, destination: nextDestination} = nextProps
-    if(!nextOrigin || !nextDestination) return
+    const { origin, destination, onDirections } = this.props;
+    const { origin: nextOrigin, destination: nextDestination } = nextProps;
+    if (!nextOrigin || !nextDestination) return;
     if (
-      origin && origin.lat === nextOrigin.lat &&
+      origin &&
+      origin.lat === nextOrigin.lat &&
       origin.lng === nextOrigin.lng &&
-      destination && destination.lat === nextDestination.lat &&
+      destination &&
+      destination.lat === nextDestination.lat &&
       destination.lng === nextDestination.lng
-    ) return
+    )
+      return;
 
     const DirectionsService = new gmaps.DirectionsService();
     DirectionsService.route(
@@ -53,6 +56,7 @@ class Map extends Component {
           this.setState({
             directions: result
           });
+          onDirections({directions: result})
         }
       }
     );
@@ -71,6 +75,7 @@ class Map extends Component {
 
 Map.propTypes = {
   origin: PropTypes.object,
-  destination: PropTypes.object
+  destination: PropTypes.object,
+  onDirections: PropTypes.func.isRequired
 };
 export default enhance(Map);

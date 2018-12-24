@@ -13,13 +13,17 @@ class Navigation extends Component {
   onRouteSearch(locations) {
     this.setState({ locations });
   }
+  onDirections(directions){
+    console.log(directions);
+    // TODO: handle leg computations and weather requests
+  }
 
   render() {
     const { locations } = this.state;
     return (
       <div>
         <Controls onRouteSearch={this.onRouteSearch.bind(this)} />
-        <Map {...locations} />
+        <Map onDirections={this.onDirections.bind(this)} {...locations} />
       </div>
     );
   }
