@@ -23,13 +23,17 @@ class Controls extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      origin: {},
-      destination: {}
+      origin: null,
+      destination: null
     };
   }
 
   onCoords(location, coords) {
     this.setState({ [location]: coords });
+    const {origin, destination} = this.state
+    const {onRouteSearch} = this.props
+    if(origin && destination)
+      onRouteSearch({origin, destination})
   }
 
   render() {
