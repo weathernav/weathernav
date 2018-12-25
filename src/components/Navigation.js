@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import MapContainer from '../containers/MapContainer';
 import Map from './Map';
 import Controls from './Controls';
 
@@ -15,10 +16,10 @@ class Navigation extends Component {
     return (
       <div>
         <Controls onRouteSearch={onRouteSearch} />
-        <Map
+        <MapContainer
           onDirections={onDirections}
           {...locations}
-          weatherPoints={weatherPoints}
+          render={props => <Map weatherPoints={weatherPoints} {...props} />}
         />
       </div>
     );

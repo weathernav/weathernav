@@ -17,7 +17,6 @@ class NavigationContainer extends Component {
   }
   onDirections(directions) {
     const { steps } = directions.routes[0].legs[0];
-
     const weatherPoints = this.findWeatherPoints(steps).map(
       p => p.end_location
     );
