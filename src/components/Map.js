@@ -15,12 +15,10 @@ const gmaps = google.maps; // eslint-disable-line
 
 const enhance = compose(
   withProps({
-    // googleMapURL:"https://maps.googleapis.com/maps/api/js?exp&libraries=places,directions&key=AIzaSyCD15-lexoV0aFOvKchs4P6B6T-IqdSq-Y",
     loadingElement: <div style={{ height: '100%' }} />,
     containerElement: <div style={{ height: '100vh' }} />,
     mapElement: <div style={{ height: '100%' }} />
   }),
-  // withScriptjs,
   withGoogleMap
 );
 
