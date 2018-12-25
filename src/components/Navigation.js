@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 
 import Map from './Map';
 import Controls from './Controls';
-const WEATHER_TIME_INTERVAL = 3600; // 1hr intervals for weather info
+const WEATHER_TIME_INTERVAL = parseInt(
+  process.env.REACT_APP_WEATHER_TIME_INTERVAL
+); // 1hr intervals for weather info
 
 class Navigation extends Component {
   constructor(props) {
@@ -18,7 +20,6 @@ class Navigation extends Component {
     const { steps } = directions.routes[0].legs[0];
 
     const weatherPoints = this.findWeatherPoints(steps);
-    console.log(weatherPoints);
   }
 
   findWeatherPoints(steps, weatherPoints = [], travelTime = 0) {
