@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Map from './Map';
 import Controls from './Controls';
+const WEATHER_TIME_INTERVAL = 3600; // 1hr intervals for weather info
 
 class Navigation extends Component {
   constructor(props) {
@@ -14,8 +15,30 @@ class Navigation extends Component {
     this.setState({ locations });
   }
   onDirections(directions) {
-    console.log(directions);
-    // TODO: handle leg computations and weather requests
+    const { steps } = directions.routes[0].legs[0];
+
+    const weatherPoints = this.findWeatherPoints(steps);
+    console.log(weatherPoints);
+  }
+
+  findWeatherPoints(steps, weatherPoints = [], travelTime = 0) {
+    if (steps.length <= 0) return weatherPoints;
+
+    const currStep = steps[0];
+    const currDuration = currStep.duration.value;
+    const remainingSteps = steps.slice(1);
+    if (currDuration + travelTime > WEATHER_TIME_INTERVAL) {
+      return this.findWeatherPoints(
+        remainingSteps,
+        [currStep, ...weatherPoints],
+        0
+      );
+    }
+    return this.findWeatherPoints(
+      remainingSteps,
+      weatherPoints,
+      travelTime + currDuration
+    );
   }
 
   render() {
