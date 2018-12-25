@@ -8,6 +8,11 @@ import {
   DirectionsRenderer
 } from 'react-google-maps';
 
+import WeatherPointsContainer from '../containers/WeatherPointsContainer';
+import WeatherPoints from './WeatherPoints';
+
+const gmaps = google.maps; // eslint-disable-line
+
 const enhance = compose(
   withProps({
     // googleMapURL:"https://maps.googleapis.com/maps/api/js?exp&libraries=places,directions&key=AIzaSyCD15-lexoV0aFOvKchs4P6B6T-IqdSq-Y",
@@ -30,7 +35,6 @@ class Map extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const gmaps = google.maps; // eslint-disable-line
     const { origin, destination, onDirections } = this.props;
     const { origin: nextOrigin, destination: nextDestination } = nextProps;
     if (!nextOrigin || !nextDestination) return;
@@ -64,10 +68,17 @@ class Map extends Component {
 
   render() {
     const { directions } = this.state;
+    const { weatherPoints } = this.props;
 
     return (
       <GoogleMap defaultZoom={8} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
         {directions && <DirectionsRenderer directions={directions} />}
+        {weatherPoints && (
+          <WeatherPointsContainer
+            points={weatherPoints}
+            render={props => <WeatherPoints {...props} />}
+          />
+        )}
       </GoogleMap>
     );
   }
@@ -76,6 +87,7 @@ class Map extends Component {
 Map.propTypes = {
   origin: PropTypes.object,
   destination: PropTypes.object,
-  onDirections: PropTypes.func.isRequired
+  onDirections: PropTypes.func.isRequired,
+  weatherPoints: PropTypes.array
 };
 export default enhance(Map);

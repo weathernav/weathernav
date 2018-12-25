@@ -19,7 +19,10 @@ class Navigation extends Component {
   onDirections(directions) {
     const { steps } = directions.routes[0].legs[0];
 
-    const weatherPoints = this.findWeatherPoints(steps);
+    const weatherPoints = this.findWeatherPoints(steps).map(
+      p => p.end_location
+    );
+    this.setState({ weatherPoints });
   }
 
   findWeatherPoints(steps, weatherPoints = [], travelTime = 0) {
@@ -43,11 +46,15 @@ class Navigation extends Component {
   }
 
   render() {
-    const { locations } = this.state;
+    const { locations, weatherPoints } = this.state;
     return (
       <div>
         <Controls onRouteSearch={this.onRouteSearch.bind(this)} />
-        <Map onDirections={this.onDirections.bind(this)} {...locations} />
+        <Map
+          onDirections={this.onDirections.bind(this)}
+          {...locations}
+          weatherPoints={weatherPoints}
+        />
       </div>
     );
   }
