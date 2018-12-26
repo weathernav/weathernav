@@ -24,7 +24,7 @@
     "eject": "react-scripts eject",
     "deploy": "react-scripts build && gh-pages -b master -d build -r git@github.com:weathernav/weathernav.github.io.git",
     "prettier": "prettier --single-quote --write \"src/**/*.js\"",
-    "cypress:open": "cypress open"
+    "cypress": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"

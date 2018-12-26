@@ -13,7 +13,7 @@ describe('Navigation', function() {
       })
     })
     it('should render weather infoboxes', ()=> {
-      cy.get('.infoBox').should('have.length', 7)
+      cy.get('.infoBox').its('length').should('be.gt', 0)
     })
   })
 
