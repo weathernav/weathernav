@@ -42,7 +42,9 @@ class MapContainer extends Component {
           });
           onDirections(result);
         } else {
-          this.setState({err: new Error('Unable to fetch driving directions.')})
+          this.setState({
+            err: new Error('Unable to fetch driving directions.')
+          });
         }
       }
     );

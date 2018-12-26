@@ -6,10 +6,10 @@ import { geocodeBySuggestion } from 'mui-places-autocomplete';
 
 class LocationSearch extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       err: null
-    }
+    };
   }
   onSuggestionSelected(suggestion) {
     geocodeBySuggestion(suggestion)

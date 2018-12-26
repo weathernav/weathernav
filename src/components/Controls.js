@@ -46,16 +46,15 @@ class Controls extends Component {
             </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
+            <LocationSearch
+              label="Search Origin"
+              onCoords={this.onCoords.bind(this, 'origin')}
+            />
 
-                <LocationSearch
-                  label="Search Origin"
-                  onCoords={this.onCoords.bind(this, 'origin')}
-                />
-
-                <LocationSearch
-                  label="Search Destination"
-                  onCoords={this.onCoords.bind(this, 'destination')}
-                />
+            <LocationSearch
+              label="Search Destination"
+              onCoords={this.onCoords.bind(this, 'destination')}
+            />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>
