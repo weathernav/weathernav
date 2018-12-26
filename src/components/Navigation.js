@@ -16,11 +16,11 @@ class Navigation extends Component {
     return (
       <div>
         <Controls onRouteSearch={onRouteSearch} />
-        <MapContainer
-          onDirections={onDirections}
-          {...locations}
-          render={props => <Map weatherPoints={weatherPoints} {...props} />}
-        />
+        <MapContainer onDirections={onDirections} {...locations}>
+          {({ directions }) => (
+            <Map weatherPoints={weatherPoints} directions={directions} />
+          )}
+        </MapContainer>
       </div>
     );
   }

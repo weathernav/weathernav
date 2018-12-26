@@ -49,16 +49,26 @@ class Controls extends Component {
           <ExpansionPanelDetails>
             <LocationSearchContainer
               onCoords={this.onCoords.bind(this, 'origin')}
-              render={props => (
-                <LocationSearch label="Search Origin" {...props} />
+            >
+              {({ err, onSuggestionSelected }) => (
+                <LocationSearch
+                  label="Search Origin"
+                  err={err}
+                  onSuggestionSelected={onSuggestionSelected}
+                />
               )}
-            />
+            </LocationSearchContainer>
             <LocationSearchContainer
               onCoords={this.onCoords.bind(this, 'destination')}
-              render={props => (
-                <LocationSearch label="Search Origin" {...props} />
+            >
+              {({ err, onSuggestionSelected }) => (
+                <LocationSearch
+                  label="Search Destination"
+                  err={err}
+                  onSuggestionSelected={onSuggestionSelected}
+                />
               )}
-            />
+            </LocationSearchContainer>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>

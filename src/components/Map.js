@@ -8,7 +8,6 @@ import {
   DirectionsRenderer
 } from 'react-google-maps';
 
-import WeatherPointsContainer from '../containers/WeatherPointsContainer';
 import WeatherPoints from './WeatherPoints';
 
 const gmaps = google.maps; // eslint-disable-line
@@ -28,12 +27,7 @@ class Map extends Component {
     return (
       <GoogleMap defaultZoom={8} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
         {directions && <DirectionsRenderer directions={directions} />}
-        {weatherPoints && (
-          <WeatherPointsContainer
-            points={weatherPoints}
-            render={props => <WeatherPoints {...props} />}
-          />
-        )}
+        {weatherPoints && <WeatherPoints points={weatherPoints} />}
       </GoogleMap>
     );
   }

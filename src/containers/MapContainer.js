@@ -47,7 +47,7 @@ class MapContainer extends Component {
 
   render() {
     const { directions } = this.state;
-    return this.props.render({ directions });
+    return this.props.children({ directions });
   }
 }
 
@@ -55,6 +55,6 @@ MapContainer.propTypes = {
   onDirections: PropTypes.func.isRequired,
   origin: PropTypes.object,
   destination: PropTypes.object,
-  render: PropTypes.func.isRequired
+  children: PropTypes.func.isRequired
 };
 export default MapContainer;

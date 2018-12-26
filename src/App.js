@@ -8,7 +8,9 @@ class App extends Component {
   render() {
     return (
       <CssBaseline>
-        <NavigationContainer render={props => <Navigation {...props} />} />
+        <NavigationContainer>
+          {props => <Navigation {...props} />}
+        </NavigationContainer>
       </CssBaseline>
     );
   }

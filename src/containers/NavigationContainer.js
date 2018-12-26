@@ -47,7 +47,7 @@ class NavigationContainer extends Component {
     const { locations, weatherPoints } = this.state;
     const onRouteSearch = this.onRouteSearch.bind(this);
     const onDirections = this.onDirections.bind(this);
-    return this.props.render({
+    return this.props.children({
       locations,
       weatherPoints,
       onRouteSearch,
@@ -57,6 +57,6 @@ class NavigationContainer extends Component {
 }
 
 NavigationContainer.propTypes = {
-  render: PropTypes.func.isRequired
+  children: PropTypes.func.isRequired
 };
 export default NavigationContainer;

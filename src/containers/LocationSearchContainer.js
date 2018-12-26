@@ -42,7 +42,7 @@ class LocationSearchContainer extends Component {
 
   render() {
     const { err } = this.state;
-    return this.props.render({
+    return this.props.children({
       err,
       onSuggestionSelected: this.onSuggestionSelected.bind(this)
     });
@@ -51,6 +51,6 @@ class LocationSearchContainer extends Component {
 
 LocationSearchContainer.propTypes = {
   onCoords: PropTypes.func.isRequired,
-  render: PropTypes.func.isRequired
+  children: PropTypes.func.isRequired
 };
 export default LocationSearchContainer;
