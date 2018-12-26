@@ -36,6 +36,9 @@ class WeatherPoint extends Component {
                 <ListItem>
                   <ListItemText primary={`Description: ${weather.desc}`} />
                 </ListItem>
+                <ListItem>
+                  <ListItemText primary={`Time: ${weather.timestamp}`} />
+                </ListItem>
               </List>
             </div>
           </div>

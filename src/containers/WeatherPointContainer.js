@@ -32,7 +32,7 @@ class WeatherPointContainer extends Component {
         precipPct: weatherData[index].pop,
         temp: weatherData[index].temp,
         desc: weatherData[index].weather.description,
-        timestamp: weatherData[index].timestamp_utc
+        timestamp: new Date(weatherData[index].ts * 1000)
       };
       this.setState({ weather });
     } catch (err) {
