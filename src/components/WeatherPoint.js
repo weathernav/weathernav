@@ -8,7 +8,7 @@ const gmaps = google.maps; // eslint-disable-line
 class WeatherPoint extends Component {
   render() {
     const { point } = this.props;
-    console.log(point);
+
     return (
       <Marker position={point} defaultVisible={false}>
         <InfoBox options={{ closeBoxURL: '', enableEventPropagation: true }}>

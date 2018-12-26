@@ -17,29 +17,39 @@ class NavigationContainer extends Component {
   }
   onDirections(directions) {
     const { steps } = directions.routes[0].legs[0];
-    const weatherPoints = this.findWeatherPoints(steps).map(
-      p => p.end_location
-    );
+
+    const weatherPoints = this.findWeatherPoints(steps).map(p => {
+      console.log(p);
+      return {
+        timeElapsed: p.timeElapsed,
+        lat: p.end_location.lat(),
+        lng: p.end_location.lng()
+      };
+    });
+    console.log(weatherPoints);
     this.setState({ weatherPoints });
   }
 
-  findWeatherPoints(steps, weatherPoints = [], travelTime = 0) {
+  findWeatherPoints(steps, weatherPoints = [], travelTime = 0, totalTime = 0) {
     if (steps.length <= 0) return weatherPoints;
 
     const currStep = steps[0];
     const currDuration = currStep.duration.value;
     const remainingSteps = steps.slice(1);
+    const timeToCurrStep = totalTime + currDuration;
     if (currDuration + travelTime > WEATHER_TIME_INTERVAL) {
       return this.findWeatherPoints(
         remainingSteps,
-        [currStep, ...weatherPoints],
-        0
+        [{ timeElapsed: timeToCurrStep, ...currStep }, ...weatherPoints],
+        0,
+        timeToCurrStep
       );
     }
     return this.findWeatherPoints(
       remainingSteps,
       weatherPoints,
-      travelTime + currDuration
+      travelTime + currDuration,
+      timeToCurrStep
     );
   }
 
