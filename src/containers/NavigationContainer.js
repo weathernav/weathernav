@@ -19,14 +19,12 @@ class NavigationContainer extends Component {
     const { steps } = directions.routes[0].legs[0];
 
     const weatherPoints = this.findWeatherPoints(steps).map(p => {
-      console.log(p);
       return {
         timeElapsed: p.timeElapsed,
         lat: p.end_location.lat(),
         lng: p.end_location.lng()
       };
     });
-    console.log(weatherPoints);
     this.setState({ weatherPoints });
   }
 
