@@ -14,7 +14,7 @@ const gmaps = google.maps; // eslint-disable-line
 const styles = theme => ({
   container: { backgroundColor: 'white', opacity: 0.75, padding: '12px' },
   contents: { fontSize: '16px', fontColor: '#08233B' }
-})
+});
 
 class WeatherPoint extends Component {
   render() {
@@ -22,18 +22,18 @@ class WeatherPoint extends Component {
     return (
       <Marker position={point} defaultVisible={false}>
         <InfoBox options={{ closeBoxURL: '', enableEventPropagation: true }}>
-          <div
-            className={classes.container}
-          >
+          <div className={classes.container}>
             <div className={classes.contents}>
               <List>
-                <ListItem >
+                <ListItem>
                   <ListItemText primary={`Temp: ${weather.temp}°`} />
                 </ListItem>
-                <ListItem >
-                  <ListItemText primary={`Precipitation: ${weather.precipPct}%`} />
+                <ListItem>
+                  <ListItemText
+                    primary={`Precipitation: ${weather.precipPct}%`}
+                  />
                 </ListItem>
-                <ListItem >
+                <ListItem>
                   <ListItemText primary={`Description: ${weather.desc}`} />
                 </ListItem>
               </List>

@@ -11,10 +11,12 @@ class WeatherPoints extends Component {
     const { points } = this.props;
     return points.map((point, i) => {
       return (
-        <WeatherPointContainer key={i} point={point} >
-          { ({err, weather, point})=> <WeatherPoint err={err} weather={weather} point={point} /> }
+        <WeatherPointContainer key={i} point={point}>
+          {({ err, weather, point }) => (
+            <WeatherPoint err={err} weather={weather} point={point} />
+          )}
         </WeatherPointContainer>
-      )
+      );
     });
   }
 }

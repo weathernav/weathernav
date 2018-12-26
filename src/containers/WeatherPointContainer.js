@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios'
+import axios from 'axios';
 
 class WeatherPointContainer extends Component {
   constructor(props) {
@@ -8,12 +8,12 @@ class WeatherPointContainer extends Component {
     this.state = {
       err: null,
       weather: {}
-    }
+    };
   }
 
   async componentDidMount() {
-    const {point} = this.props
-    const weatherTS = (Date.now()/1000) + point.timeElapsed
+    const { point } = this.props;
+    const weatherTS = Date.now() / 1000 + point.timeElapsed;
     try {
       const resp = await axios.get(process.env.REACT_APP_WEATHER_FORECAST_URL, {
         params: {
@@ -22,29 +22,28 @@ class WeatherPointContainer extends Component {
           lon: point.lng,
           units: 'I'
         }
-      })
-      const weatherData = resp.data.data
-      const timeDiffs = weatherData.map((hourlyForecast, i)=> {
-        return Math.abs(hourlyForecast.ts-weatherTS)
-      })
-      const index = timeDiffs.indexOf(Math.min.apply(Math, timeDiffs))
+      });
+      const weatherData = resp.data.data;
+      const timeDiffs = weatherData.map((hourlyForecast, i) => {
+        return Math.abs(hourlyForecast.ts - weatherTS);
+      });
+      const index = timeDiffs.indexOf(Math.min.apply(Math, timeDiffs));
       const weather = {
         precipPct: weatherData[index].pop,
         temp: weatherData[index].temp,
         desc: weatherData[index].weather.description,
         timestamp: weatherData[index].timestamp_utc
-      }
-      this.setState({weather})
-    } catch(err) {
-      this.setState({err})
+      };
+      this.setState({ weather });
+    } catch (err) {
+      this.setState({ err });
     }
-
   }
 
   render() {
-    const {err, weather} = this.state
-    const {point} = this.props
-    return this.props.children({err, weather, point})
+    const { err, weather } = this.state;
+    const { point } = this.props;
+    return this.props.children({ err, weather, point });
   }
 }
 
