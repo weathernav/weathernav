@@ -17,7 +17,7 @@ class Navigation extends Component {
       <div>
         <Controls onRouteSearch={onRouteSearch} />
         <MapContainer onDirections={onDirections} {...locations}>
-          {({ directions }) => (
+          {({ err, directions }) => (
             <Map weatherPoints={weatherPoints} directions={directions} />
           )}
         </MapContainer>

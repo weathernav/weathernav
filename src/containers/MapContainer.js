@@ -9,7 +9,8 @@ class MapContainer extends Component {
     this.state = {
       directions: null,
       origin: null,
-      destination: null
+      destination: null,
+      err: null
     };
   }
 
@@ -40,14 +41,16 @@ class MapContainer extends Component {
             directions: result
           });
           onDirections(result);
+        } else {
+          this.setState({err: new Error('Unable to fetch driving directions.')})
         }
       }
     );
   }
 
   render() {
-    const { directions } = this.state;
-    return this.props.children({ directions });
+    const { directions, err } = this.state;
+    return this.props.children({ err, directions });
   }
 }
 

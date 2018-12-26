@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import LocationSearch from './LocationSearch';
-import LocationSearchContainer from '../containers/LocationSearchContainer';
 
 const styles = theme => ({
   root: {
@@ -47,28 +46,16 @@ class Controls extends Component {
             </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <LocationSearchContainer
-              onCoords={this.onCoords.bind(this, 'origin')}
-            >
-              {({ err, onSuggestionSelected }) => (
+
                 <LocationSearch
                   label="Search Origin"
-                  err={err}
-                  onSuggestionSelected={onSuggestionSelected}
+                  onCoords={this.onCoords.bind(this, 'origin')}
                 />
-              )}
-            </LocationSearchContainer>
-            <LocationSearchContainer
-              onCoords={this.onCoords.bind(this, 'destination')}
-            >
-              {({ err, onSuggestionSelected }) => (
+
                 <LocationSearch
                   label="Search Destination"
-                  err={err}
-                  onSuggestionSelected={onSuggestionSelected}
+                  onCoords={this.onCoords.bind(this, 'destination')}
                 />
-              )}
-            </LocationSearchContainer>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>

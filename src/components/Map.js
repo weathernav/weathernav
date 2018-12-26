@@ -35,6 +35,7 @@ class Map extends Component {
 
 Map.propTypes = {
   directions: PropTypes.object,
-  weatherPoints: PropTypes.array
+  weatherPoints: PropTypes.array,
+  err: PropTypes.object
 };
 export default enhance(Map);
