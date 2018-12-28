@@ -2,12 +2,16 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 const gmaps = google.maps; // eslint-disable-line
+const WEATHER_TIME_INTERVAL = parseInt(
+  process.env.REACT_APP_WEATHER_TIME_INTERVAL
+); // 1hr intervals for weather info
 
 class MapContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       directions: null,
+      weatherPoints: [],
       origin: null,
       destination: null,
       err: null
@@ -15,7 +19,7 @@ class MapContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { origin, destination, onDirections } = this.props;
+    const { origin, destination } = this.props;
     const { origin: nextOrigin, destination: nextDestination } = nextProps;
     if (!nextOrigin || !nextDestination) return;
     if (
@@ -40,7 +44,7 @@ class MapContainer extends Component {
           this.setState({
             directions: result
           });
-          onDirections(result);
+          this.directionsToWeatherPoints(result);
         } else {
           this.setState({
             err: new Error('Unable to fetch driving directions.')
@@ -49,15 +53,48 @@ class MapContainer extends Component {
       }
     );
   }
+  directionsToWeatherPoints(directions) {
+    const { steps } = directions.routes[0].legs[0];
 
+    const weatherPoints = this.findWeatherPoints(steps).map(p => {
+      return {
+        timeElapsed: p.timeElapsed,
+        lat: p.end_location.lat(),
+        lng: p.end_location.lng()
+      };
+    });
+    this.setState({ weatherPoints });
+  }
+
+  findWeatherPoints(steps, weatherPoints = [], travelTime = 0, totalTime = 0) {
+    if (steps.length <= 0) return weatherPoints;
+
+    const currStep = steps[0];
+    const currDuration = currStep.duration.value;
+    const remainingSteps = steps.slice(1);
+    const timeToCurrStep = totalTime + currDuration;
+    if (currDuration + travelTime > WEATHER_TIME_INTERVAL) {
+      return this.findWeatherPoints(
+        remainingSteps,
+        [{ timeElapsed: timeToCurrStep, ...currStep }, ...weatherPoints],
+        0,
+        timeToCurrStep
+      );
+    }
+    return this.findWeatherPoints(
+      remainingSteps,
+      weatherPoints,
+      travelTime + currDuration,
+      timeToCurrStep
+    );
+  }
   render() {
-    const { directions, err } = this.state;
-    return this.props.children({ err, directions });
+    const { directions, weatherPoints, err } = this.state;
+    return this.props.children({ err, directions, weatherPoints });
   }
 }
 
 MapContainer.propTypes = {
-  onDirections: PropTypes.func.isRequired,
   origin: PropTypes.object,
   destination: PropTypes.object,
   children: PropTypes.func.isRequired

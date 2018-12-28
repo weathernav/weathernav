@@ -18,8 +18,13 @@ npm start
 ```
 
 # Development Notes
-## API Key
-The API key found in `.env` is only valid for https://weathernav.github.io/. To run locally, you will need to [generate your own API key](https://developers.google.com/maps/documentation/javascript/get-api-key).
+## API Keys
+The Google Maps API key `REACT_APP_GMAPS_KEY` found in `.env` is only valid for https://weathernav.github.io/. To run locally, you will need to [generate your own API key](https://developers.google.com/maps/documentation/javascript/get-api-key).
+
+You will also need to add `REACT_APP_WEATHER_FORECAST_KEY` for Weatherbit.io access. You can [create one here](https://www.weatherbit.io/account/create).
+
+## Tests
+There are some Cypress tests that can be run by a `npm run cypress`/`yarn cypress` command.
 
 ## Prettier.js precommit hook
 To enable Prettier.js precommit hook, run this command:

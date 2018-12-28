@@ -53,7 +53,6 @@ class LocationSearch extends Component {
 
 LocationSearch.propTypes = {
   label: PropTypes.string.isRequired,
-  onCoords: PropTypes.func.isRequired,
-  onSuggestionSelected: PropTypes.func.isRequired
+  onCoords: PropTypes.func.isRequired
 };
 export default LocationSearch;
